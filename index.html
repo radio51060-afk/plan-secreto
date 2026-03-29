@@ -4,171 +4,249 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Alincita ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --rosa-fuerte: #E4007C; /* Rosa Mexicano */
-            --rosa-claro: #FCE4EC;
+            --rosa-mexicano: #E4007C;
+            --rosa-pastel: #FFF0F6;
+            --amarillo: #FFD700;
             --blanco: #FFFFFF;
-            --texto: #2D2D2D;
+            --texto: #1A1A1A;
         }
 
-        * { box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, var(--rosa-claro) 0%, #fff 100%);
-            font-family: 'Montserrat', sans-serif;
+            background-color: var(--rosa-pastel);
+            font-family: 'Lexend', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             color: var(--texto);
+            overflow: hidden;
         }
 
-        .container {
-            text-align: center;
+        /* --- VENTANA PRINCIPAL --- */
+        .window {
+            background: var(--blanco);
             width: 90%;
-            max-width: 450px;
-            padding: 40px 20px;
-            background: white;
+            max-width: 400px;
+            height: 520px;
             border-radius: 40px;
-            box-shadow: 0 20px 50px rgba(228, 0, 124, 0.1);
-            border: 2px solid var(--rosa-fuerte);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.06);
+            border: 1px solid rgba(228, 0, 124, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 45px 25px;
         }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            color: var(--rosa-fuerte);
-            margin: 0 0 20px 0;
-            font-style: italic;
+        /* --- PANTALLAS --- */
+        .screen {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
-        .lindo-mensaje {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        .screen.active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hola-title {
+            font-weight: 900;
+            font-size: 2.3rem;
+            color: var(--rosa-mexicano);
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .lindo-texto {
             font-weight: 300;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 25px;
         }
 
-        /* --- RELOJ DINÁMICO Y BORROSO --- */
+        /* --- NAVEGACIÓN --- */
+        .nav-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #eee;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: var(--rosa-mexicano);
+            width: 25px;
+            border-radius: 10px;
+        }
+
+        /* --- CARRO EN MOVIMIENTO (Pestaña 2) --- */
+        .road {
+            width: 100%;
+            height: 50px;
+            border-bottom: 2px dashed #ddd;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .car-animated {
+            position: absolute;
+            bottom: 2px;
+            left: 100%;
+            font-size: 2.5rem;
+            animation: driveLeft 5s infinite linear;
+        }
+
+        @keyframes driveLeft {
+            0% { left: 100%; }
+            100% { left: -25%; }
+        }
+
+        /* --- RELOJ DE ARENA (Pestaña 3) --- */
+        .hourglass-moving {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            animation: pulseSand 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseSand {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.15) rotate(10deg); }
+        }
+
         .timer-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin: 30px 0;
-            /* Efecto difuso para el misterio */
-            filter: blur(6px);
-            transition: filter 1s ease;
+            gap: 8px;
+            filter: blur(5px); /* Se mantiene el misterio */
             user-select: none;
         }
 
-        .time-card {
-            background: var(--rosa-fuerte);
+        .time-box {
+            background: var(--rosa-mexicano);
             color: white;
-            padding: 15px 5px;
-            border-radius: 15px;
+            padding: 15px 0;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 1.4rem;
-            box-shadow: 0 8px 15px rgba(228, 0, 124, 0.2);
-            /* Animación para que se note que se mueve */
-            animation: pulseBeat 1.5s infinite ease-in-out;
+            font-size: 1.1rem;
+            border-bottom: 4px solid var(--amarillo);
         }
 
-        @keyframes pulseBeat {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .secret-badge {
-            display: inline-block;
-            background: var(--rosa-claro);
-            color: var(--rosa-fuerte);
-            padding: 8px 20px;
+        /* Pantalla Final */
+        #final-msg { display: none; }
+        .btn-check {
+            background: var(--rosa-mexicano);
+            color: white;
+            border: none;
+            padding: 12px 25px;
             border-radius: 50px;
             font-weight: 600;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            border: 1px solid var(--rosa-fuerte);
+            margin-top: 20px;
+            cursor: pointer;
         }
-
-        .hint {
-            margin-top: 30px;
-            font-size: 0.9rem;
-            font-style: italic;
-            color: #888;
-        }
-
-        /* Pantalla de Revelación */
-        #final-screen { display: none; }
-
     </style>
 </head>
 <body>
 
-    <div class="container" id="main-container">
+    <div class="window">
         
-        <div id="mistery-screen">
-            <h1>Hola, Alincita</h1>
-            
-            <p class="lindo-mensaje">
-                Hay momentos que merecen ser guardados en silencio hasta que sea el momento de vivirlos. <br><br>
-                He preparado algo que solo tú y yo entenderemos... solo tienes que esperar a que el reloj se detenga.
+        <div class="screen active" id="scr0">
+            <h1 class="hola-title">HOLA ALINCITA :)</h1>
+            <p class="lindo-texto">
+                Bienvenida. Programé este pequeño espacio porque hay algo que quiero compartir contigo.
             </p>
-
-            <div class="timer-grid" id="timer">
-                <div class="time-card" id="d">00</div>
-                <div class="time-card" id="h">00</div>
-                <div class="time-card" id="m">00</div>
-                <div class="time-card" id="s">00</div>
-            </div>
-
-            <div class="secret-badge">Esto es un secreto 🔒</div>
-
-            <p class="hint">
-                El tiempo se ve borroso ahora, pero pronto todo tendrá sentido para ti.
-            </p>
+            <p style="font-size: 2.5rem;">✨</p>
         </div>
 
-        <div id="final-screen">
-            <h1>¡Llegó el momento!</h1>
-            <p class="lindo-mensaje">
-                El misterio se terminó, Alincita. <br><br>
-                Te espero hoy a las <b>6:30 PM</b> para nuestra cita especial. <br>
-                Ponte más guapa de lo que ya eres, porque hoy celebramos nosotros.
+        <div class="screen" id="scr1">
+            <h1 class="hola-title">EL CAMINO</h1>
+            <p class="lindo-texto">
+                De Puebla a CDMX hay muchos kilómetros... pero cuando el destino eres tú, el viaje se disfruta.
             </p>
-            <div class="secret-badge">NOS VEMOS PRONTO ❤️</div>
+            <div class="road">
+                <div class="car-animated">🚗💨</div>
+            </div>
+            <p style="font-weight: 600; color: var(--rosa-mexicano);">Nos vemos pronto.</p>
+        </div>
+
+        <div class="screen" id="scr2">
+            <div id="timer-ui">
+                <div class="hourglass-moving">⏳</div>
+                <div class="timer-grid">
+                    <div class="time-box" id="d">00d</div>
+                    <div class="time-box" id="h">00h</div>
+                    <div class="time-box" id="m">00m</div>
+                    <div class="time-box" id="s">00s</div>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.8rem; color: #999;">🔒 Pendiente...</p>
+            </div>
+
+            <div id="final-msg">
+                <h1 class="hola-title">¡SORPRESA! ✨</h1>
+                <p class="lindo-texto">
+                    Te espero hoy a las <b>6:30 PM</b>.<br>
+                    Ponte más guapa de lo que ya eres, hoy celebramos nosotros.
+                </p>
+                <button class="btn-check" onclick="alert('¡Nos vemos hoy, Alincita! ❤️')">¡AHÍ ESTARÉ!</button>
+            </div>
+        </div>
+
+        <div class="nav-dots">
+            <div class="dot active" onclick="go(0)"></div>
+            <div class="dot" onclick="go(1)"></div>
+            <div class="dot" onclick="go(2)"></div>
         </div>
 
     </div>
 
     <script>
-        // Fecha objetivo: Jueves 2 de Abril 2026 00:00:00
-        const targetDate = new Date("April 2, 2026 00:00:00").getTime();
+        function go(index) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+            document.getElementById('scr' + index).classList.add('active');
+            document.querySelectorAll('.dot')[index].classList.add('active');
+        }
 
-        const updateTimer = setInterval(function() {
+        const target = new Date("April 2, 2026 00:00:00").getTime();
+
+        setInterval(function() {
             const now = new Date().getTime();
-            const distance = targetDate - now;
+            const diff = target - now;
 
-            if (distance > 0) {
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
                 document.getElementById("d").innerText = days + "d";
                 document.getElementById("h").innerText = hours + "h";
                 document.getElementById("m").innerText = minutes + "m";
                 document.getElementById("s").innerText = seconds + "s";
             } else {
-                // CUANDO LLEGA EL JUEVES
-                clearInterval(updateTimer);
-                document.getElementById("mistery-screen").style.display = "none";
-                document.getElementById("final-screen").style.display = "block";
+                document.getElementById("timer-ui").style.display = "none";
+                document.getElementById("final-msg").style.display = "block";
             }
         }, 1000);
     </script>
