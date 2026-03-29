@@ -3,142 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Alincita ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Un secreto para Alincita ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
         :root {
             --rosa-mexicano: #E4007C;
             --amarillo: #FFD700;
-            --fondo: #FFFEF7;
-            --texto: #2D2D2D;
+            --papel: #fff9e6;
+            --lapiz: #4A4A4A;
         }
 
-        * { box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Montserrat', sans-serif; background-color: var(--fondo); overflow: hidden; position: relative; }
-
-        /* --- PÉTALOS CAYENDO --- */
-        .petal { position: fixed; top: -10%; color: var(--rosa-mexicano); font-size: 20px; user-select: none; z-index: 1; animation: fall linear infinite; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
-        /* --- NAVEGACIÓN --- */
-        nav {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 10px; z-index: 100; background: rgba(255, 255, 255, 0.95);
-            padding: 10px 15px; border-radius: 50px; border: 2px solid var(--rosa-mexicano);
-            box-shadow: 0 10px 25px rgba(228, 0, 124, 0.1);
+        body {
+            background-color: #fdf6e3;
+            background-image: radial-gradient(#d1d1d1 1px, transparent 1px);
+            background-size: 20px 20px; /* Efecto papel punteado */
+            font-family: 'Chilanka', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
         }
-        .nav-btn { background: none; border: none; color: var(--rosa-mexicano); font-weight: bold; cursor: pointer; font-size: 0.75rem; padding: 10px 12px; border-radius: 25px; transition: 0.3s; }
-        .nav-btn.active { background: var(--rosa-mexicano); color: white; }
 
-        /* --- PANTALLAS --- */
-        .screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; z-index: 10; animation: fadeIn 0.6s ease; }
-        .screen.active { display: flex; }
+        .notebook-page {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            padding: 40px 30px;
+            position: relative;
+            box-shadow: 10px 10px 0px var(--amarillo);
+            border: 3px solid var(--lapiz);
+            border-radius: 2px 15px 5px 20px; /* Bordes irregulares como papel */
+            transform: rotate(-1deg);
+        }
+
+        .title {
+            font-family: 'Permanent Marker', cursive;
+            color: var(--rosa-mexicano);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            color: var(--lapiz);
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        /* --- RELOJ DIFUSO Y DIVERTIDO --- */
+        .timer-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 25px 0;
+            filter: blur(5px); /* El secreto está borroso */
+            user-select: none;
+        }
+
+        .unit {
+            background: var(--amarillo);
+            border: 2px solid var(--rosa-mexicano);
+            padding: 15px 5px;
+            border-radius: 12px;
+            font-weight: bold;
+            color: var(--rosa-mexicano);
+            font-size: 1.5rem;
+            /* Pequeña animación para que se note el movimiento */
+            animation: wiggle 0.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes wiggle {
+            from { transform: rotate(-2deg); }
+            to { transform: rotate(2deg); }
+        }
+
+        .secret-label {
+            display: inline-block;
+            background: var(--rosa-mexicano);
+            color: white;
+            padding: 5px 15px;
+            font-family: 'Permanent Marker', cursive;
+            transform: rotate(2deg);
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-note {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #888;
+            border-top: 2px dashed #ccc;
+            padding-top: 15px;
+        }
+
+        /* Revelación del Jueves */
+        #reveal-msg { display: none; animation: fadeIn 1s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .title { font-family: 'Great Vibes', cursive; font-size: 3.2rem; color: var(--rosa-mexicano); margin-bottom: 15px; }
-        .card { background: white; padding: 30px; border-radius: 30px; border: 3px solid var(--rosa-mexicano); max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-bottom: 10px solid var(--amarillo); }
-
-        /* --- VIAJE INVERTIDO --- */
-        .road { width: 100%; height: 50px; background: #eee; border-radius: 25px; position: relative; margin: 20px 0; border: 2px solid #333; overflow: hidden; }
-        .car { position: absolute; font-size: 2rem; top: 8px; right: 0; animation: driveLeft 5s infinite linear; }
-        @keyframes driveLeft { 0% { right: -15%; } 100% { right: 115%; } }
-        .labels { display: flex; justify-content: space-between; font-weight: bold; color: var(--rosa-mexicano); font-size: 0.8rem; }
-
-        /* --- CONTADOR DIFUSO DINÁMICO --- */
-        .blur-timer { filter: blur(5px); font-size: 2rem; font-weight: bold; color: var(--rosa-mexicano); margin: 15px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; transition: 1s; }
-        .unit { background: var(--amarillo); padding: 10px 2px; border-radius: 12px; animation: pulse 1s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); opacity: 0.7; } }
-
-        /* --- REVELACIÓN --- */
-        .final-btn { background: var(--rosa-mexicano); color: white; border: none; padding: 15px; border-radius: 50px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 15px; }
     </style>
 </head>
 <body>
 
-    <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
-        <button onclick="alert('Pon aquí tu canción favorita de Spotify/YouTube para que Alincita la escuche mientras navega 🎵')" style="background: var(--amarillo); border: 2px solid var(--rosa-mexicano); border-radius: 50%; width: 50px; height: 50px; cursor: pointer; font-size: 1.5rem;">🎵</button>
-    </div>
+    <div class="notebook-page">
+        <div id="countdown-content">
+            <h1 class="title">¡Hola, Alincita!</h1>
+            <p class="message">
+                He estado preparando algo que me tiene muy emocionado... <br><br>
+                Manejar desde <b>Puebla</b> a la <b>CDMX</b> no es nada cuando sé que voy a verte, pero lo que viene es diferente.
+            </p>
 
-    <nav>
-        <button class="nav-btn active" onclick="change(0)">HOLA</button>
-        <button class="nav-btn" onclick="change(1)">EL DESTINO</button>
-        <button class="nav-btn" onclick="change(2)">MISTERIO</button>
-    </nav>
-
-    <div class="screen active" id="s0">
-        <h1 class="title">¡Hola, Alincita! ✨</h1>
-        <div class="card">
-            <p>Bienvenida a la <b>Versión 2.0</b> de nuestra historia digital.</p>
-            <p>Si el 14 de febrero fue especial, lo que viene ahora es algo que he planeado con mucho más corazón.</p>
-            <p>Dale click a "EL DESTINO" abajo...</p>
-        </div>
-    </div>
-
-    <div class="screen" id="s1">
-        <h1 class="title">Sin Distancias</h1>
-        <div class="card">
-            <p>Recorrer la autopista de <span style="color:var(--rosa-mexicano); font-weight:bold;">Puebla a CDMX</span> es lo de menos si al final del camino estás tú.</p>
-            <div class="labels"><span>CDMX 🏙️</span><span>PUEBLA 🌋</span></div>
-            <div class="road"><div class="car">🚗💨</div></div>
-            <p>No cuento los kilómetros, cuento las ganas que tengo de llegar a verte.</p>
-        </div>
-    </div>
-
-    <div class="screen" id="s2">
-        <h1 class="title">Falta poco...</h1>
-        <div class="card">
-            <div id="m-view">
-                <p>Hay un secreto guardado para este <span style="color:var(--rosa-mexicano); font-weight:bold;">Jueves 2 de Abril</span>.</p>
-                <div id="blur-box" class="blur-timer">
-                    <div class="unit" id="d">00d</div><div class="unit" id="h">00h</div>
-                    <div class="unit" id="m">00m</div><div class="unit" id="s">00s</div>
-                </div>
-                <p style="font-size: 0.8rem; color: #888;">🔒 El tiempo se ve borroso, pero se está moviendo. Todo se aclara el jueves a medianoche.</p>
+            <div class="timer-container" id="blur-timer">
+                <div class="unit" id="d">00</div>
+                <div class="unit" id="h">00</div>
+                <div class="unit" id="m">00</div>
+                <div class="unit" id="s">00</div>
             </div>
-            <div id="r-view" style="display:none;">
-                <p>¡LLEGÓ EL MOMENTO, ALINCITA! ✨</p>
-                <p>Te espero hoy a las <b>6:30 PM</b>. Prepárate, porque hoy escribimos un capítulo nuevo.</p>
-                <button class="final-btn" onclick="alert('¡Ya voy por ti, Alincita! ❤️')">¡AHÍ ESTARÉ!</button>
-            </div>
+
+            <div class="secret-label">ESTO ES UN SECRETO 🔒</div>
+
+            <p class="footer-note">
+                El tiempo se ve borroso ahora, pero el <b>Jueves 2 de Abril</b> todo se aclarará para ti.
+            </p>
+        </div>
+
+        <div id="reveal-msg">
+            <h1 class="title">¡Llegó el día! ✨</h1>
+            <p class="message">
+                El misterio se terminó, Alincita. <br><br>
+                Te espero hoy a las <b>6:30 PM</b> para nuestra cita especial. <br>
+                Ponte más guapa de lo que ya eres, ¡hoy celebramos!
+            </p>
+            <div class="secret-label">¡NOS VEMOS PRONTO! ❤️</div>
         </div>
     </div>
 
     <script>
-        // Función para cambiar de pantalla
-        function change(i) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('s' + i).classList.add('active');
-            document.querySelectorAll('.nav-btn')[i].classList.add('active');
-        }
-
-        // Pétalos cayendo
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.innerHTML = '🌸';
-            petal.classList.add('petal');
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animationDuration = Math.random() * 3 + 2 + 's';
-            petal.style.opacity = Math.random();
-            document.body.appendChild(petal);
-            setTimeout(() => petal.remove(), 5000);
-        }
-        setInterval(createPetal, 300);
-
-        // Reloj - 2 de Abril 2026
+        // Fecha objetivo: Jueves 2 de Abril 2026 00:00:00
         const target = new Date("April 2, 2026 00:00:00").getTime();
-        setInterval(function() {
+
+        const x = setInterval(function() {
             const now = new Date().getTime();
-            const diff = target - now;
-            if (diff > 0) {
-                document.getElementById("d").innerText = Math.floor(diff / (86400000)) + "d";
-                document.getElementById("h").innerText = Math.floor((diff % 86400000) / 3600000) + "h";
-                document.getElementById("m").innerText = Math.floor((diff % 3600000) / 60000) + "m";
-                document.getElementById("s").innerText = Math.floor((diff % 60000) / 1000) + "s";
+            const distance = target - now;
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("d").innerText = days + "d";
+                document.getElementById("h").innerText = hours + "h";
+                document.getElementById("m").innerText = minutes + "m";
+                document.getElementById("s").innerText = seconds + "s";
             } else {
-                document.getElementById("m-view").style.display = "none";
-                document.getElementById("r-view").style.display = "block";
-                document.getElementById("blur-box").style.filter = "none";
+                // CUANDO LLEGA EL JUEVES
+                clearInterval(x);
+                document.getElementById("countdown-content").style.display = "none";
+                document.getElementById("reveal-msg").style.display = "block";
             }
         }, 1000);
     </script>
