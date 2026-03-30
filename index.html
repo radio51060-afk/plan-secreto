@@ -27,12 +27,11 @@
             overflow: hidden;
         }
 
-        /* --- VENTANA PRINCIPAL --- */
         .window {
             background: var(--blanco);
             width: 90%;
             max-width: 400px;
-            height: 520px;
+            height: 580px;
             border-radius: 40px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.06);
             border: 1px solid rgba(228, 0, 124, 0.1);
@@ -42,7 +41,6 @@
             padding: 45px 25px;
         }
 
-        /* --- PANTALLAS --- */
         .screen {
             display: none;
             flex-direction: column;
@@ -70,123 +68,72 @@
         }
 
         .lindo-texto {
-            font-weight: 300;
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 25px;
+            font-weight: 300; font-size: 1.05rem; line-height: 1.6; color: #555; margin-bottom: 25px;
         }
 
-        /* --- NAVEGACIÓN --- */
-        .nav-dots {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: auto;
-        }
+        .nav-dots { display: flex; justify-content: center; gap: 12px; margin-top: auto; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #eee; cursor: pointer; transition: 0.3s; }
+        .dot.active { background: var(--rosa-mexicano); width: 25px; border-radius: 10px; }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #eee;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        /* CARRO MOVIMIENTO */
+        .road { width: 100%; height: 50px; border-bottom: 2px dashed #ddd; position: relative; overflow: hidden; margin-bottom: 20px; }
+        .car-animated { position: absolute; bottom: 2px; left: 100%; font-size: 2.5rem; animation: driveLeft 5s infinite linear; }
+        @keyframes driveLeft { 0% { left: 100%; } 100% { left: -25%; } }
 
-        .dot.active {
-            background: var(--rosa-mexicano);
-            width: 25px;
-            border-radius: 10px;
-        }
+        /* RELOJ ARENA */
+        .hourglass-moving { font-size: 3.5rem; margin-bottom: 10px; animation: pulseSand 2s infinite ease-in-out; }
+        @keyframes pulseSand { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.1) rotate(15deg); } }
 
-        /* --- CARRO EN MOVIMIENTO (Pestaña 2) --- */
-        .road {
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; filter: blur(5px); user-select: none; }
+        .time-box { background: var(--rosa-mexicano); color: white; padding: 15px 0; border-radius: 12px; font-weight: 600; font-size: 1.1rem; border-bottom: 4px solid var(--amarillo); }
+
+        /* COORDENADAS DESCIFRÁNDOSE */
+        .coords-box {
+            margin-top: 20px;
+            background: #FDF2F8;
+            padding: 15px;
+            border-radius: 20px;
+            border: 1.5px dashed var(--rosa-mexicano);
             width: 100%;
-            height: 50px;
-            border-bottom: 2px dashed #ddd;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 20px;
         }
 
-        .car-animated {
-            position: absolute;
-            bottom: 2px;
-            left: 100%;
-            font-size: 2.5rem;
-            animation: driveLeft 5s infinite linear;
-        }
-
-        @keyframes driveLeft {
-            0% { left: 100%; }
-            100% { left: -25%; }
-        }
-
-        /* --- RELOJ DE ARENA (Pestaña 3) --- */
-        .hourglass-moving {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            animation: pulseSand 2s infinite ease-in-out;
-        }
-
-        @keyframes pulseSand {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.15) rotate(10deg); }
-        }
-
-        .timer-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            filter: blur(5px); /* Se mantiene el misterio */
-            user-select: none;
-        }
-
-        .time-box {
-            background: var(--rosa-mexicano);
-            color: white;
-            padding: 15px 0;
-            border-radius: 12px;
-            font-weight: 600;
+        .coords-text {
+            font-family: monospace;
             font-size: 1.1rem;
-            border-bottom: 4px solid var(--amarillo);
+            color: var(--rosa-mexicano);
+            font-weight: bold;
+            letter-spacing: 1px;
         }
 
-        /* Pantalla Final */
-        #final-msg { display: none; }
-        .btn-check {
+        .btn-maps {
             background: var(--rosa-mexicano);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 18px;
             border-radius: 50px;
-            font-weight: 600;
+            font-weight: 900;
             margin-top: 20px;
             cursor: pointer;
+            width: 100%;
+            display: none;
+            font-family: 'Lexend', sans-serif;
+            box-shadow: 0 10px 20px rgba(228, 0, 124, 0.2);
         }
     </style>
 </head>
 <body>
 
     <div class="window">
-        
         <div class="screen active" id="scr0">
             <h1 class="hola-title">HOLA ALINCITA :)</h1>
-            <p class="lindo-texto">
-                Bienvenida. Programé este pequeño espacio porque hay algo que quiero compartir contigo.
-            </p>
+            <p class="lindo-texto">Bienvenida. Programé este pequeño espacio porque hay algo que quiero compartir contigo.</p>
             <p style="font-size: 2.5rem;">✨</p>
         </div>
 
         <div class="screen" id="scr1">
             <h1 class="hola-title">EL CAMINO</h1>
-            <p class="lindo-texto">
-                De Puebla a CDMX hay muchos kilómetros... pero cuando el destino eres tú, la distancia no significa nada :)
-            </p>
-            <div class="road">
-                <div class="car-animated">🚗💨</div>
-            </div>
+            <p class="lindo-texto">De Puebla a CDMX hay muchos kilómetros... pero cuando el destino eres tú, el viaje se disfruta.</p>
+            <div class="road"><div class="car-animated">🚗💨</div></div>
             <p style="font-weight: 600; color: var(--rosa-mexicano);">Nos vemos pronto.</p>
         </div>
 
@@ -199,16 +146,17 @@
                     <div class="time-box" id="m">00m</div>
                     <div class="time-box" id="s">00s</div>
                 </div>
-                <p style="margin-top: 20px; font-size: 0.8rem; color: #999;">🔒 Pendiente...</p>
+                
+                <div class="coords-box">
+                    <p style="font-size: 0.65rem; text-transform: uppercase; margin-bottom: 5px; color: #999; letter-spacing: 1px;">Descifrando destino...</p>
+                    <p class="coords-text" id="progreso-coords">19.??????, -99.??????</p>
+                </div>
             </div>
 
-            <div id="final-msg">
+            <div id="final-msg" style="display:none;">
                 <h1 class="hola-title">¡SORPRESA! ✨</h1>
-                <p class="lindo-texto">
-                    Te espero hoy a las <b>6:30 PM</b>.<br>
-                    Ponte más guapa de lo que ya eres, hoy celebramos nosotros.
-                </p>
-                <button class="btn-check" onclick="alert('¡Nos vemos hoy, Alincita! ❤️')">¡AHÍ ESTARÉ!</button>
+                <p class="lindo-texto">El destino está listo. Te espero hoy a las <b>6:30 PM</b>. Ponte más guapa de lo que ya eres.</p>
+                <button class="btn-maps" id="btn-maps" onclick="abrirMaps()">ABRIR EN GOOGLE MAPS 📍</button>
             </div>
         </div>
 
@@ -217,10 +165,13 @@
             <div class="dot" onclick="go(1)"></div>
             <div class="dot" onclick="go(2)"></div>
         </div>
-
     </div>
 
     <script>
+        const latFinal = "19.381860"; 
+        const lngFinal = "-99.165408";
+        const target = new Date("April 2, 2026 00:00:00").getTime();
+
         function go(index) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
@@ -228,27 +179,40 @@
             document.querySelectorAll('.dot')[index].classList.add('active');
         }
 
-        const target = new Date("April 2, 2026 00:00:00").getTime();
-
         setInterval(function() {
-            const now = new Date().getTime();
-            const diff = target - now;
+            const ahora = new Date();
+            const hoy = ahora.getDate();
+            const mes = ahora.getMonth(); // 2 es Marzo, 3 es Abril
+            const diff = target - ahora.getTime();
+
+            // Lógica de descifrado por día
+            let displayCoords = "19.??????, -99.??????";
+            if (mes === 2 && hoy === 30) displayCoords = "19.??????, -99.??????";
+            else if (mes === 2 && hoy === 31) displayCoords = "19.38????, -99.16????";
+            else if (mes === 3 && hoy === 1) displayCoords = "19.3818??, -99.1654??";
+            else if (hoy >= 2) displayCoords = latFinal + ", " + lngFinal;
+
+            document.getElementById("progreso-coords").innerText = displayCoords;
 
             if (diff > 0) {
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                document.getElementById("d").innerText = days + "d";
-                document.getElementById("h").innerText = hours + "h";
-                document.getElementById("m").innerText = minutes + "m";
-                document.getElementById("s").innerText = seconds + "s";
+                const d = Math.floor(diff / (86400000));
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+                document.getElementById("d").innerText = d + "d";
+                document.getElementById("h").innerText = h + "h";
+                document.getElementById("m").innerText = m + "m";
+                document.getElementById("s").innerText = s + "s";
             } else {
                 document.getElementById("timer-ui").style.display = "none";
                 document.getElementById("final-msg").style.display = "block";
+                document.getElementById("btn-maps").style.display = "block";
             }
         }, 1000);
+
+        function abrirMaps() {
+            window.open(`https://www.google.com/maps/search/?api=1&query=${latFinal},${lngFinal}`, '_blank');
+        }
     </script>
 </body>
 </html>
