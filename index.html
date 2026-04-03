@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Alincita ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --rosa-mexicano: #E4007C;
@@ -31,7 +31,7 @@
             background: var(--blanco);
             width: 90%;
             max-width: 400px;
-            height: 580px;
+            height: 520px;
             border-radius: 40px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.06);
             border: 1px solid rgba(228, 0, 124, 0.1);
@@ -59,7 +59,7 @@
         }
 
         .hola-title {
-            font-weight: 700;
+            font-weight: 900;
             font-size: 2.3rem;
             color: var(--rosa-mexicano);
             letter-spacing: -1.5px;
@@ -75,18 +75,22 @@
         .dot { width: 10px; height: 10px; border-radius: 50%; background: #eee; cursor: pointer; transition: 0.3s; }
         .dot.active { background: var(--rosa-mexicano); width: 25px; border-radius: 10px; }
 
-        .road { width: 100%; height: 50px; border-bottom: 2px dashed #ddd; position: relative; overflow: hidden; margin-bottom: 20px; }
-        .car-animated { position: absolute; bottom: 2px; left: 100%; font-size: 2.5rem; animation: driveLeft 5s infinite linear; }
-        @keyframes driveLeft { 0% { left: 100%; } 100% { left: -25%; } }
+        .hourglass-moving { font-size: 3.5rem; margin-bottom: 15px; animation: pulseSand 2s infinite ease-in-out; }
+        @keyframes pulseSand { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.15) rotate(15deg); } }
 
-        .hourglass-moving { font-size: 3.5rem; margin-bottom: 10px; animation: pulseSand 2s infinite ease-in-out; }
-        @keyframes pulseSand { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.1) rotate(15deg); } }
+        /* --- DESENFOQUE SUTIL (1.5px) --- */
+        .timer-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 8px; 
+            filter: blur(1.5px); 
+            user-select: none; 
+        }
 
-        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; filter: blur(5px); user-select: none; }
         .time-box { background: var(--rosa-mexicano); color: white; padding: 15px 0; border-radius: 12px; font-weight: 600; font-size: 1.1rem; border-bottom: 4px solid var(--amarillo); }
 
         .coords-box {
-            margin-top: 20px;
+            margin-top: 25px;
             background: #FDF2F8;
             padding: 15px;
             border-radius: 20px;
@@ -113,7 +117,6 @@
             cursor: pointer;
             width: 100%;
             display: none;
-            font-family: 'Lexend', sans-serif;
             box-shadow: 0 10px 20px rgba(228, 0, 124, 0.2);
         }
     </style>
@@ -123,18 +126,11 @@
     <div class="window">
         <div class="screen active" id="scr0">
             <h1 class="hola-title">HOLA ALINCITA :)</h1>
-            <p class="lindo-texto">Los planes perfectos a veces requieren un poco más de tiempo. Gracias por esperar.</p>
-            <p style="font-size: 2.5rem;">✨</p>
+            <p class="lindo-texto">A veces las mejores historias necesitan un pequeño cambio de planes para ser perfectas. ✨</p>
+            <p style="font-size: 2.5rem;">🌸</p>
         </div>
 
         <div class="screen" id="scr1">
-            <h1 class="hola-title">EL CAMINO</h1>
-            <p class="lindo-texto">El viaje sigue, pero el destino está cada vez más cerca de ser real.</p>
-            <div class="road"><div class="car-animated">🚗💨</div></div>
-            <p style="font-weight: 600; color: var(--rosa-mexicano);">Casi llegamos.</p>
-        </div>
-
-        <div class="screen" id="scr2">
             <div id="timer-ui">
                 <div class="hourglass-moving">⏳</div>
                 <div class="timer-grid">
@@ -145,30 +141,29 @@
                 </div>
                 
                 <div class="coords-box">
-                    <p style="font-size: 0.65rem; text-transform: uppercase; margin-bottom: 5px; color: #999; letter-spacing: 1px;">Últimos ajustes del destino...</p>
+                    <p style="font-size: 0.65rem; text-transform: uppercase; margin-bottom: 5px; color: #999; letter-spacing: 1px;">Descifrando destino...</p>
                     <p class="coords-text" id="progreso-coords">19.38????, -99.16????</p>
                 </div>
             </div>
 
             <div id="final-msg" style="display:none;">
                 <h1 class="hola-title">¡Que inicie la aventura!</h1>
-                <p class="lindo-texto">Alincita, el sol se está ocultando y es el momento perfecto. Te espero en este punto:</p>
-                <button class="btn-maps" id="btn-maps" onclick="abrirMaps()">VER UBICACIÓN FINAL 📍</button>
-                <p style="margin-top:15px; font-size: 0.9rem; color: var(--rosa-mexicano); font-weight: bold;">Tengo una pregunta importante para ti... ❤️</p>
+                <p class="lindo-texto">Alincita, el momento ha llegado. Te espero hoy a las <b>6:00 PM</b>. Ponte más guapa de lo que ya eres.</p>
+                <button class="btn-maps" id="btn-maps" onclick="abrirMaps()">VER UBICACIÓN 📍</button>
+                <p style="margin-top:15px; font-size: 0.9rem; color: var(--rosa-mexicano); font-weight: bold;">Tengo una pregunta importante... ❤️</p>
             </div>
         </div>
 
         <div class="nav-dots">
             <div class="dot active" onclick="go(0)"></div>
             <div class="dot" onclick="go(1)"></div>
-            <div class="dot" onclick="go(2)"></div>
         </div>
     </div>
 
     <script>
         const latFinal = "19.381860"; 
         const lngFinal = "-99.165408";
-        // NUEVA CONFIGURACIÓN: Viernes 3 de Abril a las 6:00 PM (18:00 hrs)
+        // META: Viernes 3 de Abril, 18:00 hrs
         const target = new Date("April 3, 2026 18:00:00").getTime();
 
         function go(index) {
@@ -183,35 +178,30 @@
             const hoy = ahora.getDate();
             const mes = ahora.getMonth(); 
             const horaActual = ahora.getHours();
-            const tiempoRestante = target - ahora.getTime();
+            const diff = target - ahora.getTime();
 
-            // LÓGICA DE DESCIFRADO ACTUALIZADA
-            let displayCoords = "19.38????, -99.16????"; // Lo que ve ahora Jueves noche
-            
-            if (mes === 3 && hoy === 3) { // Si ya es Viernes 3
-                if (horaActual < 12) {
-                    displayCoords = "19.3818??, -99.1654??";
-                } else {
-                    displayCoords = "19.381860, -99.165408";
-                }
+            // Lógica de coordenadas
+            let displayCoords = "19.38????, -99.16????"; 
+            if (mes === 3 && hoy === 3) { // Viernes 3 de Abril
+                if (horaActual < 12) displayCoords = "19.3818??, -99.1654??";
+                else displayCoords = latFinal + ", " + lngFinal;
             }
-
             document.getElementById("progreso-coords").innerText = displayCoords;
 
-            if (tiempoRestante > 0) {
-                const d = Math.floor(tiempoRestante / (86400000));
-                const h = Math.floor((tiempoRestante % 86400000) / 3600000);
-                const m = Math.floor((tiempoRestante % 3600000) / 60000);
-                const s = Math.floor((tiempoRestante % 60000) / 1000);
+            if (diff > 0) {
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
                 document.getElementById("d").innerText = d + "d";
                 document.getElementById("h").innerText = h + "h";
                 document.getElementById("m").innerText = m + "m";
                 document.getElementById("s").innerText = s + "s";
             } else {
-                // REVELACIÓN FINAL: VIERNES 3 DE ABRIL A LAS 6:00 PM
                 document.getElementById("timer-ui").style.display = "none";
                 document.getElementById("final-msg").style.display = "block";
                 document.getElementById("btn-maps").style.display = "block";
+                document.querySele ctor('.timer-grid').style.filter = "none";
             }
         }, 1000);
 
