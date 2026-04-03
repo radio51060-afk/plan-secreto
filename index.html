@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Alincita ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --rosa-mexicano: #E4007C;
@@ -75,19 +75,16 @@
         .dot { width: 10px; height: 10px; border-radius: 50%; background: #eee; cursor: pointer; transition: 0.3s; }
         .dot.active { background: var(--rosa-mexicano); width: 25px; border-radius: 10px; }
 
-        /* CARRO MOVIMIENTO */
         .road { width: 100%; height: 50px; border-bottom: 2px dashed #ddd; position: relative; overflow: hidden; margin-bottom: 20px; }
         .car-animated { position: absolute; bottom: 2px; left: 100%; font-size: 2.5rem; animation: driveLeft 5s infinite linear; }
         @keyframes driveLeft { 0% { left: 100%; } 100% { left: -25%; } }
 
-        /* RELOJ ARENA */
         .hourglass-moving { font-size: 3.5rem; margin-bottom: 10px; animation: pulseSand 2s infinite ease-in-out; }
         @keyframes pulseSand { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.1) rotate(15deg); } }
 
         .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; filter: blur(5px); user-select: none; }
         .time-box { background: var(--rosa-mexicano); color: white; padding: 15px 0; border-radius: 12px; font-weight: 600; font-size: 1.1rem; border-bottom: 4px solid var(--amarillo); }
 
-        /* COORDENADAS DESCIFRÁNDOSE */
         .coords-box {
             margin-top: 20px;
             background: #FDF2F8;
@@ -111,7 +108,7 @@
             border: none;
             padding: 18px;
             border-radius: 50px;
-            font-weight: 700;
+            font-weight: 900;
             margin-top: 20px;
             cursor: pointer;
             width: 100%;
@@ -126,15 +123,15 @@
     <div class="window">
         <div class="screen active" id="scr0">
             <h1 class="hola-title">HOLA ALINCITA :)</h1>
-            <p class="lindo-texto">Bienvenida. Programé este pequeño espacio porque hay algo que quiero compartir contigo.</p>
+            <p class="lindo-texto">Los planes perfectos a veces requieren un poco más de tiempo. Gracias por esperar.</p>
             <p style="font-size: 2.5rem;">✨</p>
         </div>
 
         <div class="screen" id="scr1">
             <h1 class="hola-title">EL CAMINO</h1>
-            <p class="lindo-texto">De Puebla a CDMX hay muchos kilómetros... pero cuando el destino eres tú, el viaje se disfruta.</p>
+            <p class="lindo-texto">El viaje sigue, pero el destino está cada vez más cerca de ser real.</p>
             <div class="road"><div class="car-animated">🚗💨</div></div>
-            <p style="font-weight: 600; color: var(--rosa-mexicano);">Nos vemos pronto.</p>
+            <p style="font-weight: 600; color: var(--rosa-mexicano);">Casi llegamos.</p>
         </div>
 
         <div class="screen" id="scr2">
@@ -148,15 +145,16 @@
                 </div>
                 
                 <div class="coords-box">
-                    <p style="font-size: 0.65rem; text-transform: uppercase; margin-bottom: 5px; color: #999; letter-spacing: 1px;">Descifrando destino...</p>
-                    <p class="coords-text" id="progreso-coords">19.??????, -99.??????</p>
+                    <p style="font-size: 0.65rem; text-transform: uppercase; margin-bottom: 5px; color: #999; letter-spacing: 1px;">Últimos ajustes del destino...</p>
+                    <p class="coords-text" id="progreso-coords">19.38????, -99.16????</p>
                 </div>
             </div>
 
             <div id="final-msg" style="display:none;">
-                <h1 class="hola-title" id="final-title">¡Que inicie la aventura!</h1>
-                <p class="lindo-texto">El destino está listo. Te espero hoy a las <b>6:30 PM</b>. Ponte más guapa de lo que ya eres.</p>
-                <button class="btn-maps" id="btn-maps" onclick="abrirMaps()">ABRIR EN GOOGLE MAPS 📍</button>
+                <h1 class="hola-title">¡Que inicie la aventura!</h1>
+                <p class="lindo-texto">Alincita, el sol se está ocultando y es el momento perfecto. Te espero en este punto:</p>
+                <button class="btn-maps" id="btn-maps" onclick="abrirMaps()">VER UBICACIÓN FINAL 📍</button>
+                <p style="margin-top:15px; font-size: 0.9rem; color: var(--rosa-mexicano); font-weight: bold;">Tengo una pregunta importante para ti... ❤️</p>
             </div>
         </div>
 
@@ -170,8 +168,8 @@
     <script>
         const latFinal = "19.381860"; 
         const lngFinal = "-99.165408";
-        // CONFIGURACIÓN: Jueves 2 de Abril a las 4:00 PM (16:00 hrs)
-        const target = new Date("April 2, 2026 16:00:00").getTime();
+        // NUEVA CONFIGURACIÓN: Viernes 3 de Abril a las 6:00 PM (18:00 hrs)
+        const target = new Date("April 3, 2026 18:00:00").getTime();
 
         function go(index) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -183,24 +181,18 @@
         setInterval(function() {
             const ahora = new Date();
             const hoy = ahora.getDate();
-            const mes = ahora.getMonth(); // 2: Marzo, 3: Abril
+            const mes = ahora.getMonth(); 
             const horaActual = ahora.getHours();
             const tiempoRestante = target - ahora.getTime();
 
-            // LÓGICA DE DESCIFRADO DÍA A DÍA
-            let displayCoords = "19.??????, -99.??????";
+            // LÓGICA DE DESCIFRADO ACTUALIZADA
+            let displayCoords = "19.38????, -99.16????"; // Lo que ve ahora Jueves noche
             
-            if (mes === 2) { // Marzo
-                if (hoy === 30) displayCoords = "19.??????, -99.??????";
-                if (hoy === 31) displayCoords = "19.38????, -99.16????";
-            } else if (mes === 3) { // Abril
-                if (hoy === 1) displayCoords = "19.3818??, -99.1654??";
-                if (hoy === 2) {
-                    if (horaActual < 16) {
-                        displayCoords = "19.381860, -99.165408";
-                    } else {
-                        displayCoords = latFinal + ", " + lngFinal;
-                    }
+            if (mes === 3 && hoy === 3) { // Si ya es Viernes 3
+                if (horaActual < 12) {
+                    displayCoords = "19.3818??, -99.1654??";
+                } else {
+                    displayCoords = "19.381860, -99.165408";
                 }
             }
 
@@ -216,7 +208,7 @@
                 document.getElementById("m").innerText = m + "m";
                 document.getElementById("s").innerText = s + "s";
             } else {
-                // REVELACIÓN FINAL A LAS 4:00 PM DEL JUEVES
+                // REVELACIÓN FINAL: VIERNES 3 DE ABRIL A LAS 6:00 PM
                 document.getElementById("timer-ui").style.display = "none";
                 document.getElementById("final-msg").style.display = "block";
                 document.getElementById("btn-maps").style.display = "block";
@@ -224,7 +216,6 @@
         }, 1000);
 
         function abrirMaps() {
-            // Estándar de Google Maps para abrir la ubicación exacta
             window.open(`https://www.google.com/maps/search/?api=1&query=${latFinal},${lngFinal}`, '_blank');
         }
     </script>
